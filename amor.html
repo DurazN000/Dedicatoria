@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amor — Arturo & Isabel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a0610;
+    color: #ffd0da;
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* fondo degradado animado */
+  .bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, #3d0820 0%, #1a0610 70%);
+    z-index: 0;
+    animation: bgPulse 4s ease-in-out infinite;
+  }
+  @keyframes bgPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.7; }
+  }
+
+  /* corazón CSS latiendo */
+  .heart-wrap {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 1.8rem;
+    animation: heartbeat 1.2s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%   { transform: scale(1); }
+    14%  { transform: scale(1.18); }
+    28%  { transform: scale(1); }
+    42%  { transform: scale(1.1); }
+    70%  { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+
+  .heart {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(0 0 24px rgba(220,50,80,0.8));
+  }
+  .heart::before,
+  .heart::after {
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 56px;
+    background: #e03060;
+    border-radius: 35px 35px 0 0;
+  }
+  .heart::before {
+    left: 35px;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+  .heart::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    max-width: 660px;
+  }
+
+  .date-chip {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: #c06080;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 7vw, 3.6rem);
+    font-weight: 700;
+    color: #ffd0da;
+    text-shadow: 0 0 40px rgba(220,60,80,0.6);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: #c06080;
+    margin-bottom: 2.2rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e03060, transparent);
+    margin: 0 auto 2.2rem;
+  }
+
+  .message {
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.12rem);
+    line-height: 1.9;
+    color: #ffd0da;
+    opacity: 0.92;
+  }
+  .message em {
+    font-style: italic;
+    color: #ff9ab0;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .signature {
+    margin-top: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #c06080;
+  }
+
+  /* pétalos y corazones flotantes */
+  .petal, .floatheart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: petalFall linear infinite;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-5vh) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.85; }
+    95%  { opacity: 0.6; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+
+  .petal {
+    width: 10px; height: 14px;
+    background: radial-gradient(ellipse at 40% 40%, #ff6090, #9b1040);
+    border-radius: 50% 0 50% 50%;
+  }
+
+  .floatheart {
+    color: #e03060;
+    font-size: 1rem;
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="content">
+  <div class="heart-wrap"><div class="heart"></div></div>
+  <div class="date-chip">2 años · 12 de junio</div>
+  <h1>Mi amor</h1>
+  <div class="subtitle">Arturo &amp; Isabel</div>
+  <div class="divider"></div>
+  <p class="message">
+    Amar es una decisión que se renueva cada mañana,<br>
+    en el café compartido, en el silencio que no pesa,<br>
+    en saber que hay alguien que te busca con los ojos<br>
+    cuando algo —bueno o malo— pasa.<br><br>
+    <em>"Eres el lugar al que quiero volver siempre."</em><br><br>
+    Dos años de aprender que el amor no es un destino<br>
+    sino la forma en que caminamos juntos,<br>
+    eligiéndonos en cada curva del camino.
+  </p>
+  <div class="signature">Con todo lo que soy · Arturo</div>
+</div>
+
+<script>
+// pétalos y corazones
+function spawnElement() {
+  const isHeart = Math.random() > 0.55;
+  const el = document.createElement('div');
+  el.className = isHeart ? 'floatheart' : 'petal';
+  if (isHeart) el.textContent = ['♥','❤','♡'][Math.floor(Math.random()*3)];
+
+  const size = isHeart ? (10 + Math.random() * 14) : (6 + Math.random() * 10);
+  const dur  = 6 + Math.random() * 10;
+  const delay = Math.random() * -20;
+
+  el.style.cssText = `
+    left: ${Math.random()*100}%;
+    font-size: ${size}px;
+    animation-duration: ${dur}s;
+    animation-delay: ${delay}s;
+    opacity: ${0.3 + Math.random()*0.5};
+  `;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), (dur + Math.abs(delay)) * 1000 + 2000);
+}
+
+// sembrar iniciales
+for (let i = 0; i < 30; i++) spawnElement();
+// seguir generando
+setInterval(() => {
+  if (document.querySelectorAll('.petal,.floatheart').length < 35) spawnElement();
+}, 600);
+</script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diversión — Arturo & Isabel</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #6a3d9a;
+    color: #1a0a2e;
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* degradado animado de fondo */
+  .bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 50%, #7c3aed 100%);
+    background-size: 400% 400%;
+    animation: bgShift 6s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes bgShift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    max-width: 680px;
+  }
+
+  .side-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.4rem;
+    opacity: 0.85;
+    user-select: none;
+    animation: bobFloat 2.4s ease-in-out infinite;
+  }
+  .side-icon.left  { left: -3.2rem; animation-delay: 0s; }
+  .side-icon.right { right: -3.2rem; animation-delay: 1.2s; }
+
+  @keyframes bobFloat {
+    0%, 100% { transform: translateY(-50%) translateY(0); }
+    50%       { transform: translateY(-50%) translateY(-10px); }
+  }
+
+  h1 {
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 3px 3px 0 #c44000, 0 0 30px rgba(255,200,0,0.5);
+    margin-bottom: 0.3rem;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #fff4e0;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    margin: 0 auto 2rem;
+    opacity: 0.6;
+  }
+
+  .message {
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+    line-height: 1.85;
+    color: #3a1800;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    padding: 1.6rem 3rem;
+  }
+  .message em {
+    font-style: italic;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .signature {
+    margin-top: 2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #fff;
+    opacity: 0.9;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── 3 gatos CSS ── */
+  .cats-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* cuerpo base de gato */
+  .cat { position: relative; width: 48px; height: 48px; }
+
+  /* cabeza */
+  .cat .head {
+    position: absolute;
+    top: 0; left: 8px;
+    width: 32px; height: 28px;
+    background: #1a1a1a;
+    border-radius: 50% 50% 45% 45%;
+  }
+  /* orejas */
+  .cat .head::before,
+  .cat .head::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid #1a1a1a;
+  }
+  .cat .head::before { left: 2px; transform: rotate(-15deg); }
+  .cat .head::after  { right: 2px; transform: rotate(15deg); }
+
+  /* ojos */
+  .cat .eyes {
+    position: absolute;
+    top: 9px; left: 14px;
+    width: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cat .eye {
+    width: 5px; height: 5px;
+    background: #ffd700;
+    border-radius: 50%;
+  }
+
+  /* cuerpo */
+  .cat .body {
+    position: absolute;
+    bottom: 4px; left: 4px;
+    width: 40px; height: 26px;
+    background: #1a1a1a;
+    border-radius: 45% 45% 40% 40%;
+  }
+
+  /* cola */
+  .cat .tail {
+    position: absolute;
+    bottom: 6px; right: -8px;
+    width: 20px; height: 8px;
+    background: #1a1a1a;
+    border-radius: 0 8px 8px 0;
+    transform-origin: left center;
+  }
+
+  /* gato 1 — salta */
+  .cat-jump { animation: jumpCat 1.2s ease-in-out infinite; }
+  @keyframes jumpCat {
+    0%,100% { transform: translateY(0); }
+    40%     { transform: translateY(-18px); }
+    60%     { transform: translateY(-16px); }
+  }
+
+  /* gato 2 — duerme */
+  .cat-sleep .eye { background: #1a1a1a; border-top: 2px solid #ffd700; height: 2px; border-radius: 0; }
+  .zzz {
+    position: absolute;
+    top: -22px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #fff;
+    animation: floatZzz 2s ease-in-out infinite;
+  }
+  @keyframes floatZzz {
+    0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.8); }
+    30%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-20%) translateY(-16px) scale(1.2); }
+  }
+
+  /* gato 3 — menea cola */
+  .cat-wag .tail { animation: wagTail 0.4s ease-in-out infinite alternate; }
+  @keyframes wagTail {
+    from { transform: rotate(-30deg); }
+    to   { transform: rotate(30deg); }
+  }
+
+  /* ── gatito cursor ── */
+  #cursor-cat {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 28px; height: 28px;
+    transition: transform 0.08s;
+  }
+  #cursor-cat .head {
+    position: absolute;
+    top: 0; left: 4px;
+    width: 20px; height: 18px;
+    background: #1a1a1a;
+    border-radius: 50% 50% 45% 45%;
+  }
+  #cursor-cat .head::before,
+  #cursor-cat .head::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid #1a1a1a;
+  }
+  #cursor-cat .head::before { left: 1px; transform: rotate(-15deg); }
+  #cursor-cat .head::after  { right: 1px; transform: rotate(15deg); }
+  #cursor-cat .eyes {
+    position: absolute;
+    top: 6px; left: 6px;
+    width: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  #cursor-cat .eye {
+    width: 3px; height: 3px;
+    background: #ffd700;
+    border-radius: 50%;
+  }
+  #cursor-cat .body {
+    position: absolute;
+    bottom: 2px; left: 2px;
+    width: 24px; height: 14px;
+    background: #1a1a1a;
+    border-radius: 45% 45% 40% 40%;
+  }
+
+  /* ── confetti ── */
+  .confetti-piece {
+    position: fixed;
+    top: -12px;
+    width: 10px; height: 10px;
+    opacity: 0;
+    animation: confettiFall linear infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+  @keyframes confettiFall {
+    0%   { opacity: 1; transform: translateY(0) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(105vh) rotate(720deg); }
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- 3 gatos -->
+<div class="cats-row">
+  <!-- gato 1: salta -->
+  <div class="cat cat-jump">
+    <div class="head">
+      <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+    </div>
+    <div class="body"></div>
+    <div class="tail"></div>
+  </div>
+
+  <!-- gato 2: duerme -->
+  <div class="cat cat-sleep" style="position:relative">
+    <div class="zzz">z z z</div>
+    <div class="head">
+      <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+    </div>
+    <div class="body"></div>
+    <div class="tail"></div>
+  </div>
+
+  <!-- gato 3: menea cola -->
+  <div class="cat cat-wag">
+    <div class="head">
+      <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+    </div>
+    <div class="body"></div>
+    <div class="tail"></div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="side-icon left">🎮</div>
+  <div class="side-icon right">
+    <div class="cat cat-wag" style="transform:scale(1.3)">
+      <div class="head"><div class="eyes"><div class="eye"></div><div class="eye"></div></div></div>
+      <div class="body"></div>
+      <div class="tail"></div>
+    </div>
+  </div>
+  <h1>¡Dos años de risa!</h1>
+  <div class="subtitle">Arturo &amp; Isabel · 12 · 06 · 2026</div>
+  <div class="divider"></div>
+  <div class="message">
+    <em>Gracias por reírte conmigo (y de mí).</em><br><br>
+    Por los planes mal que salen bien.<br>
+    Por las comidas extrañas.<br>
+    Por los videojuegos que se volvieron parte de ti.<br>
+    Por las series que compartimos.<br>
+    Y por el millón de cosas más que nos falta por hacer.<br><br>
+    <em>Eres la persona con la que más me divierto.</em><br><br>
+    Y eso no tiene precio.
+  </div>
+  <div class="signature">Con todo lo que somos · Arturo</div>
+</div>
+
+
+<!-- gatito cursor -->
+<div id="cursor-cat">
+  <div class="head">
+    <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+  </div>
+  <div class="body"></div>
+</div>
+
+<script>
+// gatito sigue cursor
+const cursorCat = document.getElementById('cursor-cat');
+let mx = -100, my = -100;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX - 14;
+  my = e.clientY - 14;
+  cursorCat.style.left = mx + 'px';
+  cursorCat.style.top  = my + 'px';
+});
+
+// confetti
+const COLORS = ['#fff','#ffe066','#ff6090','#7af','#a0f','#f90','#0e0'];
+function makeConfetti() {
+  const el = document.createElement('div');
+  el.className = 'confetti-piece';
+  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+  const size  = 6 + Math.random() * 8;
+  const dur   = 3 + Math.random() * 5;
+  const shape = Math.random() > 0.5 ? '50%' : '2px';
+  el.style.cssText = `
+    left: ${Math.random()*100}%;
+    width: ${size}px; height: ${size}px;
+    background: ${color};
+    border-radius: ${shape};
+    animation-duration: ${dur}s;
+    animation-delay: ${-Math.random()*6}s;
+  `;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 6) * 1000);
+}
+
+for (let i = 0; i < 50; i++) makeConfetti();
+setInterval(() => {
+  if (document.querySelectorAll('.confetti-piece').length < 55) makeConfetti();
+}, 400);
+</script>
+</body>
+</html>
